@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Oscar Baltazar</title>
+
+<!-- Urbanist Font -->
+<link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@200;300;600&display=swap" rel="stylesheet">
+
+<style>
+:root { color-scheme: dark; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: #030F18;
+  color: #D4D1C8;
+  font-family: 'Urbanist', sans-serif;
+  text-align: center;
+  padding: 24px;
+  overflow: hidden;
+}
+
+/* More noticeable (but tasteful) animated background */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -35%;
+  z-index: -1;
+
+  background:
+    radial-gradient(700px 700px at 18% 25%, rgba(212, 209, 200, 0.18), transparent 60%),
+    radial-gradient(900px 900px at 82% 28%, rgba(212, 209, 200, 0.14), transparent 62%),
+    radial-gradient(1000px 1000px at 52% 85%, rgba(212, 209, 200, 0.10), transparent 65%),
+    radial-gradient(900px 900px at 55% 45%, rgba(3, 15, 24, 0.60), transparent 60%);
+
+  filter: blur(42px);
+  opacity: 1;
+
+  animation: drift 26s ease-in-out infinite alternate;
+  transform: translate3d(0, 0, 0);
+}
+
+@keyframes drift {
+  0%   { transform: translate(-3%, -2%) scale(1.02); }
+  50%  { transform: translate(3%, 2.5%) scale(1.05); }
+  100% { transform: translate(-2%, 3%) scale(1.03); }
+}
+
+/* Respect “Reduce Motion” accessibility setting */
+@media (prefers-reduced-motion: reduce) {
+  body::before { animation: none; }
+}
+
+.card { max-width: 720px; }
+
+h1 {
+  margin: 0 0 14px;
+  font-size: clamp(42px, 7vw, 72px);
+  font-weight: 600; /* SemiBold */
+  letter-spacing: 0.5px;
+}
+
+p {
+  margin: 0 0 28px;
+  font-size: clamp(18px, 2.5vw, 24px);
+  font-weight: 300; /* Light */
+  opacity: 0.92;
+  line-height: 1.35;
+}
+
+a.button {
+  display: inline-block;
+  padding: 14px 24px;
+  border: 2px solid #D4D1C8;
+  border-radius: 12px;
+  text-decoration: none;
+  color: #D4D1C8;
+  font-weight: 200; /* ExtraLight */
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+a.button:hover {
+  transform: translateY(-2px);
+  background-color: rgba(212, 209, 200, 0.06);
+}
+</style>
+</head>
+
+<body>
+  <main class="card">
+    <h1>Oscar Baltazar</h1>
+    <p id="quote">Loading...</p>
+    <a class="button" href="mailto:contact@oscarbaltazar.com">Contact</a>
+  </main>
+
+<script>
+const quotes = [
+  "Oye, ya tú sabes",
+  "Blessings for you and your family",
+  "Professionally winging it",
+  "Running on caffeine and good intentions",
+  "Slightly organized chaos",
+  "I didn’t come this far to only come this far",
+  "Trust the process… even when the process looks suspicious",
+  "Built different… mostly with duct tape and determination",
+  "Results may vary, effort does not",
+  "Confidence level: “yeah we can figure that out”"
+];
+
+function newQuote() {
+  const pick = quotes[Math.floor(Math.random() * quotes.length)];
+  document.getElementById("quote").textContent = pick;
+}
+
+newQuote();
+</script>
+</body>
+</html>
