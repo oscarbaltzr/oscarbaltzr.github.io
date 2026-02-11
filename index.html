@@ -15,14 +15,14 @@
 
 body {
   margin: 0;
-  min-height: 100vh;
-  display: grid;
-  place-items: center;
+  height: 100dvh; /* dynamic viewport height for mobile */
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: #0B1F33;
   color: #D4D1C8;
   font-family: 'Urbanist', sans-serif;
   text-align: center;
-  padding: 24px;
   overflow: hidden;
 }
 
@@ -57,7 +57,10 @@ body::before {
   body::before { animation: none; }
 }
 
-.card { max-width: 720px; }
+.card {
+  max-width: 720px;
+  padding: 0 24px;
+}
 
 h1 {
   margin: 0 0 14px;
