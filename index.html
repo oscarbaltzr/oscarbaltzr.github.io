@@ -15,14 +15,9 @@
 
 body {
   margin: 0;
-  height: 100dvh; /* dynamic viewport height for mobile */
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background: #0B1F33;
   color: #D4D1C8;
   font-family: 'Urbanist', sans-serif;
-  text-align: center;
   overflow: hidden;
 }
 
@@ -57,9 +52,22 @@ body::before {
   body::before { animation: none; }
 }
 
+  /* TRYING HERE */
+
+  .wrapper {
+  height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+}
+
+  
+
 .card {
   max-width: 720px;
-  padding: 0 24px;
+  margin: auto;
 }
 
 h1 {
@@ -96,11 +104,14 @@ a.button:hover {
 </head>
 
 <body>
+
+<div class="wrapper">
   <main class="card">
     <h1>Oscar Baltazar</h1>
     <p id="quote">Loading...</p>
     <a class="button" href="mailto:contact@oscarbaltazar.com">Contact</a>
   </main>
+</div>
 
 <script>
 const quotes = [
