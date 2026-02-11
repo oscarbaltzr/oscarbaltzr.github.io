@@ -40,14 +40,14 @@ body::before {
   filter: blur(42px);
   opacity: 1;
 
-  animation: drift 26s ease-in-out infinite alternate;
+  animation: drift 14s ease-in-out infinite alternate;
   transform: translate3d(0, 0, 0);
 }
 
 @keyframes drift {
-  0%   { transform: translate(-3%, -2%) scale(1.02); }
-  50%  { transform: translate(3%, 2.5%) scale(1.05); }
-  100% { transform: translate(-2%, 3%) scale(1.03); }
+  0%   { transform: translate(-4%, -3%) scale(1.02); }
+  50%  { transform: translate(4%, 3%) scale(1.06); }
+  100% { transform: translate(-4%, 3%) scale(1.03); }
 }
 
 /* Respect “Reduce Motion” accessibility setting */
