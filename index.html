@@ -6,8 +6,6 @@
 <title>Oscar Baltazar</title>
 <link rel="icon" type="image/png" href="favicon.png">
 
-
-<!-- Urbanist Font -->
 <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@200;300;600&display=swap" rel="stylesheet">
 
 <style>
@@ -21,22 +19,18 @@ body {
   overflow: hidden;
 }
 
-/* More noticeable (but tasteful) animated background */
 body::before {
   content: "";
   position: fixed;
   inset: -35%;
   z-index: -1;
-
   background:
     radial-gradient(700px 700px at 18% 25%, rgba(212, 209, 200, 0.20), transparent 60%),
     radial-gradient(900px 900px at 82% 28%, rgba(212, 209, 200, 0.16), transparent 62%),
     radial-gradient(1000px 1000px at 52% 85%, rgba(15, 35, 60, 0.45), transparent 65%),
     radial-gradient(900px 900px at 55% 45%, rgba(8, 25, 45, 0.60), transparent 60%);
-
   filter: blur(42px);
   opacity: 1;
-
   animation: drift 3s ease-in-out infinite alternate;
   transform: translate3d(0, 0, 0);
 }
@@ -47,14 +41,11 @@ body::before {
   100% { transform: translate(-4%, 3%) scale(1.03); }
 }
 
-/* Respect “Reduce Motion” accessibility setting */
 @media (prefers-reduced-motion: reduce) {
   body::before { animation: none; }
 }
 
-  /* TRYING HERE */
-
-  .wrapper {
+.wrapper {
   height: 100dvh;
   display: flex;
   align-items: center;
@@ -62,8 +53,6 @@ body::before {
   text-align: center;
   padding: 20px;
 }
-
-  
 
 .card {
   max-width: 720px;
@@ -73,45 +62,241 @@ body::before {
 h1 {
   margin: 0 0 14px;
   font-size: clamp(42px, 7vw, 72px);
-  font-weight: 600; /* SemiBold */
+  font-weight: 600;
   letter-spacing: 0.5px;
 }
 
 p {
   margin: 0 0 28px;
   font-size: clamp(18px, 2.5vw, 24px);
-  font-weight: 300; /* Light */
+  font-weight: 300;
   opacity: 0.92;
   line-height: 1.35;
 }
 
-a.button {
-  display: inline-block;
-  padding: 14px 24px;
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 20px;
   border: 2px solid #D4D1C8;
   border-radius: 12px;
   text-decoration: none;
   color: #D4D1C8;
-  font-weight: 200; /* ExtraLight */
+  font-weight: 200;
   transition: transform 0.2s ease, background-color 0.2s ease;
+  background: transparent;
+  cursor: pointer;
 }
 
-a.button:hover {
+.button:hover {
   transform: translateY(-2px);
   background-color: rgba(212, 209, 200, 0.06);
+}
+
+.button:active { transform: translateY(0px); }
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.actions .access {
+  grid-column: 1 / -1;
+  justify-self: center;
+  min-width: 220px;
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(6px);
+  z-index: 10;
+}
+
+.modal.open { display: flex; }
+
+.modal-card {
+  width: min(520px, 100%);
+  border: 1px solid rgba(212, 209, 200, 0.25);
+  border-radius: 16px;
+  padding: 18px;
+  background: rgba(11, 31, 51, 0.78);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  text-align: left;
+  position: relative;
+}
+
+.modal-title {
+  font-weight: 600;
+  margin: 0 0 10px;
+  letter-spacing: 0.3px;
+}
+
+.modal-desc {
+  margin: 0 0 14px;
+  opacity: 0.9;
+  font-weight: 300;
+}
+
+.field-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.input {
+  flex: 1;
+  min-width: 180px;
+  padding: 12px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(212, 209, 200, 0.35);
+  background: rgba(3, 15, 24, 0.35);
+  color: #D4D1C8;
+  outline: none;
+  font-family: inherit;
+  font-weight: 300;
+}
+
+.input::placeholder { opacity: 0.6; }
+
+.small-btn {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 2px solid #D4D1C8;
+  background: transparent;
+  color: #D4D1C8;
+  font-family: inherit;
+  font-weight: 200;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.small-btn:hover { background-color: rgba(212, 209, 200, 0.06); }
+.small-btn:active { transform: translateY(0px); }
+
+.error {
+  margin-top: 10px;
+  opacity: 0.95;
+  font-weight: 300;
+}
+
+.error strong { font-weight: 600; }
+
+/* X close button */
+.xclose {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  border: 1px solid rgba(212, 209, 200, 0.30);
+  background: rgba(212, 209, 200, 0.06);
+  color: #D4D1C8;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+}
+.xclose:hover { background: rgba(212, 209, 200, 0.10); }
+
+.phone-number {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  margin: 6px 0 14px;
 }
 </style>
 </head>
 
 <body>
+  <div class="wrapper">
+    <main class="card">
+      <h1>Oscar Baltazar</h1>
+      <p id="quote">Loading...</p>
 
-<div class="wrapper">
-  <main class="card">
-    <h1>Oscar Baltazar</h1>
-    <p id="quote">Loading...</p>
-    <a class="button" href="mailto:contact@oscarbaltazar.com">Contact</a>
-  </main>
-</div>
+      <div class="actions">
+        <!-- Email -->
+        <a class="button" href="mailto:contact@oscarbaltazar.com" aria-label="Email Oscar">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4 7.5A2.5 2.5 0 0 1 6.5 5h11A2.5 2.5 0 0 1 20 7.5v9A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5v-9Z" stroke="currentColor" stroke-width="2"/>
+            <path d="M5.5 7l6.1 5.1c.25.2.55.3.9.3s.65-.1.9-.3L19.5 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <span>Email</span>
+        </a>
+
+        <!-- Phone (opens modal, does NOT call) -->
+        <button class="button" id="phoneBtn" type="button" aria-haspopup="dialog" aria-controls="phoneModal">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7.5 3.5h3l1 4-2 1.2a14.3 14.3 0 0 0 5.8 5.8L16.5 12l4 1v3c0 1.1-.9 2-2 2h-.6c-7.7 0-13.9-6.2-13.9-13.9V5.5c0-1.1.9-2 2-2Z"
+              stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          </svg>
+          <span>Phone</span>
+        </button>
+
+        <!-- Access -->
+        <button class="button access" id="accessBtn" type="button" aria-haspopup="dialog" aria-controls="accessModal">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7 11V8.5A5 5 0 0 1 12 3.5a5 5 0 0 1 5 5V11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M6.5 11h11A2.5 2.5 0 0 1 20 13.5v5A2.5 2.5 0 0 1 17.5 21h-11A2.5 2.5 0 0 1 4 18.5v-5A2.5 2.5 0 0 1 6.5 11Z" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          <span>Access</span>
+        </button>
+      </div>
+    </main>
+  </div>
+
+  <!-- Phone Modal -->
+  <div class="modal" id="phoneModal" role="dialog" aria-modal="true" aria-labelledby="phoneTitle">
+    <div class="modal-card">
+      <button class="xclose" id="closePhone" type="button" aria-label="Close">×</button>
+      <h2 class="modal-title" id="phoneTitle">Phone</h2>
+      <p class="modal-desc">Here’s the number:</p>
+
+      <!-- CHANGE THIS NUMBER -->
+      <div class="phone-number" id="phoneText">(559) 392-3412</div>
+
+      <div class="field-row">
+        <button class="small-btn" id="copyPhone" type="button">Copy</button>
+      </div>
+      <div class="error" id="copyMsg" style="display:none;">Copied.</div>
+    </div>
+  </div>
+
+  <!-- Access Modal -->
+  <div class="modal" id="accessModal" role="dialog" aria-modal="true" aria-labelledby="accessTitle">
+    <div class="modal-card">
+      <button class="xclose" id="closeAccess" type="button" aria-label="Close">×</button>
+      <h2 class="modal-title" id="accessTitle">Restricted Access</h2>
+      <p class="modal-desc">Enter password to continue.</p>
+
+      <form id="accessForm">
+        <div class="field-row">
+          <input class="input" id="pw" type="password" placeholder="Password" autocomplete="off" />
+          <button class="small-btn" type="submit">Submit</button>
+        </div>
+        <div class="error" id="errorMsg" style="display:none;">
+          <strong>Wrong password.</strong> Try again.
+        </div>
+      </form>
+    </div>
+  </div>
 
 <script>
 const quotes = [
@@ -124,8 +309,73 @@ function newQuote() {
   const pick = quotes[Math.floor(Math.random() * quotes.length)];
   document.getElementById("quote").textContent = pick;
 }
-
 newQuote();
+
+/* Phone modal */
+const phoneBtn = document.getElementById("phoneBtn");
+const phoneModal = document.getElementById("phoneModal");
+const closePhone = document.getElementById("closePhone");
+const copyPhone = document.getElementById("copyPhone");
+const phoneText = document.getElementById("phoneText");
+const copyMsg = document.getElementById("copyMsg");
+
+function openPhone() {
+  phoneModal.classList.add("open");
+  copyMsg.style.display = "none";
+}
+function closePhoneModal() {
+  phoneModal.classList.remove("open");
+}
+
+phoneBtn.addEventListener("click", openPhone);
+closePhone.addEventListener("click", closePhoneModal);
+phoneModal.addEventListener("click", (e) => { if (e.target === phoneModal) closePhoneModal(); });
+
+copyPhone.addEventListener("click", async () => {
+  try {
+    await navigator.clipboard.writeText(phoneText.textContent.trim());
+    copyMsg.style.display = "block";
+    setTimeout(() => (copyMsg.style.display = "none"), 1200);
+  } catch {
+    copyMsg.style.display = "block";
+    copyMsg.textContent = "Copy not supported in this browser.";
+  }
+});
+
+/* Access modal (always wrong) */
+const accessBtn = document.getElementById("accessBtn");
+const accessModal = document.getElementById("accessModal");
+const closeAccess = document.getElementById("closeAccess");
+const form = document.getElementById("accessForm");
+const pw = document.getElementById("pw");
+const errorMsg = document.getElementById("errorMsg");
+
+function openAccess() {
+  accessModal.classList.add("open");
+  errorMsg.style.display = "none";
+  pw.value = "";
+  setTimeout(() => pw.focus(), 50);
+}
+function closeAccessModal() {
+  accessModal.classList.remove("open");
+}
+
+accessBtn.addEventListener("click", openAccess);
+closeAccess.addEventListener("click", closeAccessModal);
+accessModal.addEventListener("click", (e) => { if (e.target === accessModal) closeAccessModal(); });
+
+window.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    if (phoneModal.classList.contains("open")) closePhoneModal();
+    if (accessModal.classList.contains("open")) closeAccessModal();
+  }
+});
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  errorMsg.style.display = "block";
+  pw.select();
+});
 </script>
 </body>
 </html>
