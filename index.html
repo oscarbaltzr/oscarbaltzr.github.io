@@ -49,9 +49,7 @@ body::before {
   padding: 20px;
 }
 
-.card {
-  max-width: 720px;
-}
+.card { max-width: 720px; }
 
 h1 {
   margin: 0 0 14px;
@@ -65,19 +63,7 @@ p {
   font-weight: 300;
 }
 
-.actions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  max-width: 520px;
-  margin: 0 auto;
-}
-
-.actions .access {
-  grid-column: 1 / -1;
-  justify-self: center;
-  min-width: 220px;
-}
+/* BUTTONS */
 
 .button {
   display: inline-flex;
@@ -95,8 +81,8 @@ p {
 
   font-family: 'Urbanist', sans-serif;
   font-weight: 200;
-  font-size: 16px;        /* 🔥 force consistent size */
-  line-height: 1;         /* 🔥 normalize vertical sizing */
+  font-size: 16px;
+  line-height: 1;
 
   cursor: pointer;
   text-decoration: none;
@@ -104,14 +90,30 @@ p {
   transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
-  button.button {
-  appearance: none;
-  border: 2px solid #D4D1C8;
-}
-
 .button:hover {
   transform: translateY(-2px);
   background-color: rgba(212, 209, 200, 0.06);
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* Layout */
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.actions .access {
+  grid-column: 1 / -1;
+  justify-self: center;
+  min-width: 220px;
 }
 
 /* Modal */
@@ -179,7 +181,9 @@ p {
   transform: translateX(-50%) translateY(0);
 }
 
-/* Shake */
+/* Password error */
+
+.error { color: #ffb3b3; }
 
 @keyframes shake {
   20% { transform: translateX(-6px); }
@@ -189,8 +193,6 @@ p {
 }
 
 .shake { animation: shake 0.4s ease; }
-
-.error { color: #ffb3b3; }
 
 .input {
   padding: 12px;
@@ -210,9 +212,23 @@ p {
     <p id="quote"></p>
 
     <div class="actions">
-      <a class="button" href="mailto:contact@oscarbaltazar.com">Email</a>
-      <button class="button" id="phoneBtn">Phone</button>
-      <button class="button access" id="accessBtn">Access</button>
+
+      <a class="button" href="mailto:contact@oscarbaltazar.com">
+        <svg class="icon" viewBox="0 0 24 24" fill="none">
+          <path d="M4 7.5A2.5 2.5 0 0 1 6.5 5h11A2.5 2.5 0 0 1 20 7.5v9A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5v-9Z" stroke="currentColor" stroke-width="2"/>
+          <path d="M5.5 7l6.1 5.1c.25.2.55.3.9.3s.65-.1.9-.3L19.5 7" stroke="currentColor" stroke-width="2"/>
+        </svg>
+        Email
+      </a>
+
+      <button class="button" id="phoneBtn">
+        📞 Phone
+      </button>
+
+      <button class="button access" id="accessBtn">
+        🔒 Access
+      </button>
+
     </div>
   </main>
 </div>
@@ -222,9 +238,7 @@ p {
   <div class="modal-card">
     <button class="xclose" id="closePhone">×</button>
     <h2>Phone</h2>
-
     <div class="phone-number" id="phoneText">(559) 321-5891</div>
-
     <button class="button" id="copyPhone">Copy</button>
   </div>
 </div>
@@ -238,7 +252,6 @@ p {
     <form id="accessForm">
       <input class="input" id="pw" type="password" placeholder="Password">
       <button class="button" type="submit">Submit</button>
-
       <div class="error" id="errorMsg" style="display:none;">
         <strong>Wrong password.</strong> Try again.
       </div>
@@ -246,7 +259,7 @@ p {
   </div>
 </div>
 
-<div class="toast" id="toast">Copied</div>
+<div class="toast" id="toast"></div>
 
 <script>
 const quotes = [
@@ -258,54 +271,38 @@ const quotes = [
 document.getElementById("quote").textContent =
   quotes[Math.floor(Math.random()*quotes.length)];
 
-function vibrate(pattern) {
-  if (navigator.vibrate) navigator.vibrate(pattern);
+function vibrate(pattern){
+  if(navigator.vibrate) navigator.vibrate(pattern);
 }
 
-function showToast(message) {
-  const toast = document.getElementById("toast");
-  toast.textContent = message;
+function showToast(msg){
+  const toast=document.getElementById("toast");
+  toast.textContent=msg;
   toast.classList.add("show");
-
-  setTimeout(() => toast.classList.remove("show"), 2000);
+  setTimeout(()=>toast.classList.remove("show"),2000);
 }
 
 /* Phone */
+phoneBtn.onclick=()=>phoneModal.classList.add("open");
+closePhone.onclick=()=>phoneModal.classList.remove("open");
 
-const phoneBtn = document.getElementById("phoneBtn");
-const phoneModal = document.getElementById("phoneModal");
-const closePhone = document.getElementById("closePhone");
-const copyPhone = document.getElementById("copyPhone");
-const phoneText = document.getElementById("phoneText");
-
-phoneBtn.onclick = () => phoneModal.classList.add("open");
-closePhone.onclick = () => phoneModal.classList.remove("open");
-
-copyPhone.onclick = async () => {
+copyPhone.onclick=async()=>{
   await navigator.clipboard.writeText(phoneText.textContent);
   showToast("✓ Phone number copied");
-  vibrate([40, 30, 40]);
+  vibrate([40,30,40]);
 };
 
 /* Access */
+accessBtn.onclick=()=>accessModal.classList.add("open");
+closeAccess.onclick=()=>accessModal.classList.remove("open");
 
-const accessBtn = document.getElementById("accessBtn");
-const accessModal = document.getElementById("accessModal");
-const closeAccess = document.getElementById("closeAccess");
-const form = document.getElementById("accessForm");
-const errorMsg = document.getElementById("errorMsg");
-
-accessBtn.onclick = () => accessModal.classList.add("open");
-closeAccess.onclick = () => accessModal.classList.remove("open");
-
-form.addEventListener("submit", e => {
+accessForm.addEventListener("submit",e=>{
   e.preventDefault();
-  errorMsg.style.display = "block";
+  errorMsg.style.display="block";
   errorMsg.classList.remove("shake");
   void errorMsg.offsetWidth;
   errorMsg.classList.add("shake");
-
-  vibrate([60, 40, 60]);
+  vibrate([60,40,60]);
 });
 </script>
 
