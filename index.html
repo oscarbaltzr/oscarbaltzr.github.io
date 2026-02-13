@@ -80,13 +80,33 @@ p {
 }
 
 .button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
   padding: 14px 20px;
+
   border: 2px solid #D4D1C8;
   border-radius: 12px;
-  color: #D4D1C8;
+
   background: transparent;
-  cursor: pointer;
+  color: #D4D1C8;
+
+  font-family: 'Urbanist', sans-serif;
   font-weight: 200;
+  font-size: 16px;        /* 🔥 force consistent size */
+  line-height: 1;         /* 🔥 normalize vertical sizing */
+
+  cursor: pointer;
+  text-decoration: none;
+
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+  button.button {
+  appearance: none;
+  border: 2px solid #D4D1C8;
 }
 
 .button:hover {
