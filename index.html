@@ -6,44 +6,72 @@
 <title>Oscar Baltazar</title>
 
 <link rel="icon" href="favicon.png">
-
 <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@200;300;600&display=swap" rel="stylesheet">
 
 <style>
-/* ===== GLOBAL FIXES ===== */
 *,
 *::before,
 *::after { box-sizing: border-box; }
 
-body {
+body{
   margin:0;
   color:#D4D1C8;
   font-family:'Urbanist',sans-serif;
   overflow:hidden;
+  background:#030f18;
 }
 
-/* ===== ANIMATED GRADIENT BACKGROUND ===== */
+/* ===== ANIMATED BACKGROUND ===== */
 
 body::before{
   content:"";
   position:fixed;
   inset:-50%;
   background:
-    radial-gradient(circle at 20% 30%, #163a5f, transparent 45%),
-    radial-gradient(circle at 80% 70%, #0a2a44, transparent 45%),
-    radial-gradient(circle at 50% 50%, #071c2e, #030f18 70%);
-  animation:moveBG 18s linear infinite alternate;
-  z-index:-1;
+    radial-gradient(circle at 18% 28%, rgba(53,126,201,.35), transparent 46%),
+    radial-gradient(circle at 82% 70%, rgba(20,96,160,.28), transparent 48%),
+    radial-gradient(circle at 50% 50%, rgba(7,28,46,1), rgba(3,15,24,1) 70%);
+  animation:moveBG 18s ease-in-out infinite alternate;
+  z-index:-2;
 }
 
 @keyframes moveBG{
-  from { transform:translate(0,0); }
-  to   { transform:translate(6%,4%); }
+  from { transform:translate(0,0) scale(1); }
+  to   { transform:translate(6%,4%) scale(1.02); }
+}
+
+/* ===== FLOATING ORBS ===== */
+
+.orb{
+  position:fixed;
+  width:280px;height:280px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(212,209,200,.18), transparent 60%);
+  filter: blur(12px);
+  top:10%;
+  left:10%;
+  animation:float 10s ease-in-out infinite;
+  z-index:-1;
+  pointer-events:none;
+}
+.orb2{
+  width:340px;height:340px;
+  bottom:10%;
+  right:8%;
+  top:auto; left:auto;
+  background:radial-gradient(circle, rgba(90,170,255,.14), transparent 62%);
+  animation-duration:12s;
+  animation-delay:-3s;
+}
+
+@keyframes float{
+  0%,100%{ transform:translate(0,0); }
+  50%{ transform:translate(28px,18px); }
 }
 
 /* ===== LAYOUT ===== */
 
-.wrapper {
+.wrapper{
   height:100dvh;
   display:flex;
   align-items:center;
@@ -52,23 +80,33 @@ body::before{
   padding:20px;
 }
 
-.card { max-width:720px; }
-
-h1 {
-  margin:0 0 14px;
-  font-size:clamp(42px,7vw,72px);
-  font-weight:600;
+.card{
+  max-width:720px;
+  padding:28px 22px;
+  border-radius:22px;
+  background:rgba(3,15,24,.26);
+  border:1px solid rgba(212,209,200,.18);
+  box-shadow: 0 24px 80px rgba(0,0,0,.40);
+  backdrop-filter: blur(12px);
 }
 
-p {
+h1{
+  margin:0 0 10px;
+  font-size:clamp(42px,7vw,72px);
+  font-weight:600;
+  min-height:1.2em;
+}
+
+p{
   margin:0 0 28px;
   font-size:clamp(18px,2.5vw,24px);
   font-weight:300;
+  min-height:1.5em;
 }
 
-/* ===== BUTTONS ===== */
+/* ===== BUTTON GRID ===== */
 
-.actions {
+.actions{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:14px;
@@ -76,65 +114,66 @@ p {
   margin:0 auto;
 }
 
-.button {
+.button{
   width:100%;
-  min-width:0;
   display:flex;
   align-items:center;
   justify-content:center;
   gap:12px;
   padding:14px 22px;
-  border:2px solid #D4D1C8;
-  border-radius:12px;
-  background:transparent;
+  border:2px solid rgba(212,209,200,.28);
+  border-radius:14px;
+  background:rgba(3,15,24,.10);
   color:#D4D1C8;
   font-weight:300;
   font-size:16px;
   cursor:pointer;
   text-decoration:none;
-  transition:.2s;
+  transition:.18s;
 }
 
-.button:hover {
+.button:hover{
   transform:translateY(-2px);
-  background:rgba(212,209,200,0.06);
+  background:rgba(212,209,200,.08);
 }
 
-.button img {
+.button:active{ transform:scale(.98); }
+
+.button img{
   width:20px;
   height:20px;
-  object-fit:contain;
 }
 
 /* ===== MODALS ===== */
 
-.modal {
+.modal{
   position:fixed;
   inset:0;
   display:none;
   align-items:center;
   justify-content:center;
   background:rgba(0,0,0,.55);
-  backdrop-filter:blur(6px);
+  backdrop-filter:blur(8px);
 }
 
-.modal.open { display:flex; }
+.modal.open{ display:flex; }
 
-.modal-card {
+.modal-card{
   width:min(520px,100%);
-  border-radius:16px;
+  border-radius:18px;
   padding:18px;
-  background:rgba(11,31,51,.9);
+  background:rgba(11,31,51,.90);
+  border:1px solid rgba(212,209,200,.16);
+  box-shadow: 0 22px 80px rgba(0,0,0,.45);
   position:relative;
   text-align:left;
 }
 
-.xclose {
+.xclose{
   position:absolute;
   top:10px;
   right:10px;
-  width:38px;
-  height:38px;
+  width:38px;height:38px;
   border-radius:12px;
   border:1px solid rgba(212,209,200,.3);
   background:rgba(212,209,200,.06);
@@ -143,7 +182,7 @@ p {
   cursor:pointer;
 }
 
-.phone-number {
+.phone-number{
   font-size:22px;
   font-weight:600;
   margin:10px 0 14px;
@@ -151,12 +190,12 @@ p {
 
 /* ===== TOAST ===== */
 
-.toast {
+.toast{
   position:fixed;
   bottom:40px;
   left:50%;
   transform:translateX(-50%) translateY(20px);
-  background:rgba(11,31,51,.9);
+  background:rgba(11,31,51,.92);
   padding:12px 18px;
   border-radius:14px;
   border:1px solid rgba(212,209,200,.25);
@@ -166,25 +205,16 @@ p {
   transition:.35s;
 }
 
-.toast.show {
+.toast.show{
   opacity:1;
   transform:translateX(-50%) translateY(0);
 }
 
 /* ===== PASSWORD ===== */
 
-.error { color:#ffb3b3; }
+.error{ color:#ffb3b3; margin-top:10px; }
 
-@keyframes shake {
-  20% { transform:translateX(-6px); }
-  40% { transform:translateX(6px); }
-  60% { transform:translateX(-4px); }
-  80% { transform:translateX(4px); }
-}
-
-.shake { animation:shake .4s ease; }
-
-.input {
+.input{
   padding:12px;
   border-radius:12px;
   border:1px solid rgba(212,209,200,.35);
@@ -198,34 +228,36 @@ p {
 
 <body>
 
+<div class="orb"></div>
+<div class="orb orb2"></div>
+
 <div class="wrapper">
   <main class="card">
-    <h1>Oscar Baltazar</h1>
+    <h1 id="name"></h1>
     <p id="quote"></p>
 
     <div class="actions">
 
       <a class="button" href="mailto:contact@oscarbaltazar.com">
-        <img src="email.png" alt="Email">
+        <img src="email.png">
         Email
       </a>
 
       <button class="button" id="phoneBtn">
-        <img src="phone.png" alt="Phone">
+        <img src="phone.png">
         Phone
       </button>
 
       <a class="button"
          href="https://www.linkedin.com/in/oscardbaltazar"
          target="_blank"
-         rel="noopener noreferrer"
-         title="Opens in a new tab">
-        <img src="linkedin.png" alt="LinkedIn">
+         rel="noopener noreferrer">
+        <img src="linkedin.png">
         LinkedIn
       </a>
 
       <button class="button" id="accessBtn">
-        <img src="lock.png" alt="Access">
+        <img src="lock.png">
         Access
       </button>
 
@@ -263,13 +295,46 @@ p {
 <div class="toast" id="toast"></div>
 
 <script>
-const quotes=[
+const nameText = "Oscar Baltazar";
+const quotes = [
 "Oye, ya tú sabes",
 "Blessings for you and your family",
 "Running on caffeine and good intentions"
 ];
 
-quote.textContent = quotes[Math.floor(Math.random()*quotes.length)];
+const nameEl = document.getElementById("name");
+const quoteEl = document.getElementById("quote");
+
+let i = 0;
+
+function typeName(){
+  if(i < nameText.length){
+    nameEl.textContent += nameText.charAt(i);
+    i++;
+    setTimeout(typeName, 70);
+  } else {
+    typeQuote();
+  }
+}
+
+function typeQuote(){
+  const q = quotes[Math.floor(Math.random()*quotes.length)];
+  let j = 0;
+
+  function type(){
+    if(j < q.length){
+      quoteEl.textContent += q.charAt(j);
+      j++;
+      setTimeout(type, 40);
+    }
+  }
+
+  type();
+}
+
+typeName();
+
+/* ===== UI JS ===== */
 
 function vibrate(p){ if(navigator.vibrate) navigator.vibrate(p); }
 
@@ -279,7 +344,6 @@ function showToast(msg){
   setTimeout(()=>toast.classList.remove("show"),2000);
 }
 
-/* PHONE */
 phoneBtn.onclick = ()=>phoneModal.classList.add("open");
 closePhone.onclick = ()=>phoneModal.classList.remove("open");
 
@@ -289,16 +353,12 @@ copyPhone.onclick = async ()=>{
   vibrate([40,30,40]);
 };
 
-/* ACCESS */
 accessBtn.onclick = ()=>accessModal.classList.add("open");
 closeAccess.onclick = ()=>accessModal.classList.remove("open");
 
 accessForm.addEventListener("submit",e=>{
   e.preventDefault();
   errorMsg.style.display="block";
-  errorMsg.classList.remove("shake");
-  void errorMsg.offsetWidth;
-  errorMsg.classList.add("shake");
   vibrate([60,40,60]);
 });
 </script>
