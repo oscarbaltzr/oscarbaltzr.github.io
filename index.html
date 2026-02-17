@@ -1,4 +1,3 @@
-<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
@@ -44,6 +43,7 @@ p {
 /* BUTTONS */
 
 .button {
+  width:100%;
   display:inline-flex;
   align-items:center;
   justify-content:center;
@@ -81,10 +81,11 @@ p {
   margin:0 auto;
 }
 
+/* Access no longer spans full row (keeps 2x2 alignment) */
 .actions .access {
-  grid-column:1/-1;
-  justify-self:center;
-  min-width:220px;
+  grid-column:auto;
+  justify-self:stretch;
+  min-width:0;
 }
 
 /* Modal */
@@ -177,44 +178,55 @@ p {
 
 <body>
 
-<div class="wrapper"><div class="actions">
+<div class="wrapper">
+  <main class="card">
+    <h1>Oscar Baltazar</h1>
+    <p id="quote"></p>
 
-  <a class="button" href="mailto:contact@oscarbaltazar.com">
-    <img src="email.png">
-    Email
-  </a>
+    <div class="actions">
 
-  <button class="button" id="phoneBtn">
-    <img src="phone.png">
-    Phone
-  </button>
+      <a class="button" href="mailto:contact@oscarbaltazar.com">
+        <img src="email.png" alt="Email icon">
+        Email
+      </a>
 
-  <a class="button" href="https://www.linkedin.com/in/oscardbaltazar" target="_blank">
-    <img src="linkedin.png">
-    LinkedIn
-  </a>
+      <button class="button" id="phoneBtn">
+        <img src="phone.png" alt="Phone icon">
+        Phone
+      </button>
 
-  <button class="button access" id="accessBtn">
-    <img src="lock.png">
-    Access
-  </button>
+      <a class="button"
+         href="https://www.linkedin.com/in/oscardbaltazar"
+         target="_blank"
+         rel="noopener noreferrer"
+         title="Opens in a new tab">
+        <img src="linkedin.png" alt="LinkedIn icon">
+        LinkedIn
+      </a>
 
+      <button class="button access" id="accessBtn">
+        <img src="lock.png" alt="Lock icon">
+        Access
+      </button>
+
+    </div>
+  </main>
 </div>
 
 <!-- Phone Modal -->
 <div class="modal" id="phoneModal">
   <div class="modal-card">
-    <button class="xclose" id="closePhone">×</button>
+    <button class="xclose" id="closePhone" type="button" aria-label="Close">×</button>
     <h2>Phone</h2>
     <div class="phone-number" id="phoneText">(559) 321-5891</div>
-    <button class="button" id="copyPhone">Copy</button>
+    <button class="button" id="copyPhone" type="button">Copy</button>
   </div>
 </div>
 
 <!-- Access Modal -->
 <div class="modal" id="accessModal">
   <div class="modal-card">
-    <button class="xclose" id="closeAccess">×</button>
+    <button class="xclose" id="closeAccess" type="button" aria-label="Close">×</button>
     <h2>Restricted Access</h2>
 
     <form id="accessForm">
@@ -237,16 +249,16 @@ const quotes=[
 "Running on caffeine and good intentions"
 ];
 
-document.getElementById("quote").textContent=
-quotes[Math.floor(Math.random()*quotes.length)];
+document.getElementById("quote").textContent =
+  quotes[Math.floor(Math.random()*quotes.length)];
 
 function vibrate(p){ if(navigator.vibrate) navigator.vibrate(p); }
 
 function showToast(msg){
- const t=document.getElementById("toast");
- t.textContent=msg;
- t.classList.add("show");
- setTimeout(()=>t.classList.remove("show"),2000);
+  const t=document.getElementById("toast");
+  t.textContent=msg;
+  t.classList.add("show");
+  setTimeout(()=>t.classList.remove("show"),2000);
 }
 
 /* Phone */
@@ -254,9 +266,9 @@ phoneBtn.onclick=()=>phoneModal.classList.add("open");
 closePhone.onclick=()=>phoneModal.classList.remove("open");
 
 copyPhone.onclick=async()=>{
- await navigator.clipboard.writeText(phoneText.textContent);
- showToast("✓ Phone number copied");
- vibrate([40,30,40]);
+  await navigator.clipboard.writeText(phoneText.textContent);
+  showToast("✓ Phone number copied");
+  vibrate([40,30,40]);
 };
 
 /* Access */
@@ -264,16 +276,14 @@ accessBtn.onclick=()=>accessModal.classList.add("open");
 closeAccess.onclick=()=>accessModal.classList.remove("open");
 
 accessForm.addEventListener("submit",e=>{
- e.preventDefault();
- errorMsg.style.display="block";
- errorMsg.classList.remove("shake");
- void errorMsg.offsetWidth;
- errorMsg.classList.add("shake");
- vibrate([60,40,60]);
+  e.preventDefault();
+  errorMsg.style.display="block";
+  errorMsg.classList.remove("shake");
+  void errorMsg.offsetWidth;
+  errorMsg.classList.add("shake");
+  vibrate([60,40,60]);
 });
 </script>
 
 </body>
 </html>
-
-
